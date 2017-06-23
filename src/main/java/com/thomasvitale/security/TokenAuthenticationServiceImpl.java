@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
+
 public class TokenAuthenticationServiceImpl implements TokenAuthenticationService {
 	
 	private TokenHandler tokenHandler = new TokenHandler();
@@ -42,7 +47,21 @@ public class TokenAuthenticationServiceImpl implements TokenAuthenticationServic
 		
 		if (token != null) {
 			// Parse the token.
-			String user = tokenHandler.parse(token);
+			String user = null;
+			
+			try {
+				user = tokenHandler.parse(token);
+			} catch (ExpiredJwtException e) {
+				e.printStackTrace();
+			} catch (UnsupportedJwtException e) {
+				e.printStackTrace();
+			} catch (MalformedJwtException e) {
+				e.printStackTrace();
+			} catch (SignatureException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			}
 			
 			if (user != null) {
 				return new UsernamePasswordAuthenticationToken(user, null, emptyList());

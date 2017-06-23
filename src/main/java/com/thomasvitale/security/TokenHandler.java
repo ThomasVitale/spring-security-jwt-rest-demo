@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.compression.CompressionCodecs;
 
 public class TokenHandler {
 	
@@ -32,6 +33,7 @@ public class TokenHandler {
 				 		 .setSubject(username)
 				 		 .setIssuedAt(now)
 				 		 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
+				 		 //.compressWith(CompressionCodecs.DEFLATE) // uncomment to enable token compression
 				 		 .signWith(SignatureAlgorithm.HS512, SECRET)
 				 		 .compact();
 		
