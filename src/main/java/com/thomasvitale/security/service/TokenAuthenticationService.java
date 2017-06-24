@@ -1,4 +1,4 @@
-package com.thomasvitale.security;
+package com.thomasvitale.security.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

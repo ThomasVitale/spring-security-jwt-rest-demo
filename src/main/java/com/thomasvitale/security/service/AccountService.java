@@ -1,10 +1,8 @@
-package com.thomasvitale.security;
+package com.thomasvitale.security.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import static java.util.Collections.emptyList;
 
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,32 +10,32 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.thomasvitale.model.Account;
-import com.thomasvitale.repository.AccountRepository;
+import com.thomasvitale.security.repository.AccountRepository;
 
 @Service("userDetailsService")
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class AccountService implements UserDetailsService {
 	
 	private AccountRepository accountRepository;
 	private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
 
-	public UserDetailsServiceImpl(AccountRepository accountRepository) {
+	public AccountService(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		// Fetch the account corresponding to the given username
 		Account account = accountRepository.findByUsername(username); 
 
+		// If the account doesn't exist
 		if (account == null) {
 			throw new UsernameNotFoundException("User " + username + " not found");
 		}
 		
-		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("USER");
-		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-		simpleGrantedAuthorities.add(simpleGrantedAuthority);
-		
-		User user = new User(account.getUsername(), account.getPassword(), simpleGrantedAuthorities);
-		
+		// User(username, password, enabled, accountNonExpired, credentialsNotExpired, accountNonLocked, authorities)
+		User user = new User(account.getUsername(), account.getPassword(), account.isEnabled(), true, true, true, emptyList());
+				
 		detailsChecker.check(user);
 
 		return user;

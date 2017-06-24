@@ -1,4 +1,4 @@
-package com.thomasvitale.security;
+package com.thomasvitale.security.service;
 
 import static java.util.Collections.emptyList;
 
@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import com.thomasvitale.security.TokenHandler;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -47,7 +49,7 @@ public class TokenAuthenticationServiceImpl implements TokenAuthenticationServic
 		
 		String token = request.getHeader(tokenHandler.HEADER_STRING);
 		
-		if (token != null) {
+		if (token != null && token.startsWith(tokenHandler.TOKEN_PREFIX)) {
 			// Parse the token.
 			String user = null;
 			

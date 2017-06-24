@@ -1,4 +1,4 @@
-package com.thomasvitale.repository;
+package com.thomasvitale.security.repository;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -17,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thomasvitale.model.Account;
+import com.thomasvitale.security.service.TokenAuthenticationService;
+import com.thomasvitale.security.service.TokenAuthenticationServiceImpl;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	

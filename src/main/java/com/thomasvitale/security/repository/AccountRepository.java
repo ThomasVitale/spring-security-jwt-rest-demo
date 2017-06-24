@@ -1,4 +1,4 @@
-package com.thomasvitale.repository;
+package com.thomasvitale.security.repository;
 
 import com.thomasvitale.model.Account;
 

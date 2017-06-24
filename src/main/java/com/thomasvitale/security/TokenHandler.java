@@ -5,7 +5,8 @@ import java.util.UUID;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.thomasvitale.repository.AccountRepositoryImpl;
+import com.thomasvitale.security.repository.AccountRepositoryImpl;
+import com.thomasvitale.security.service.AccountService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,10 +15,11 @@ public class TokenHandler {
 	
 	final long EXPIRATIONTIME = 15*60*1000; 		// 15 minutes
 	final String SECRET = "ThisIsASecret";			// private key, better read it from an external file
-	final String TOKEN_PREFIX = "Bearer";			// the prefix of the token in the http header
-	final String HEADER_STRING = "Authorization";	// the http header containing the prexif + the token
 	
-	private UserDetailsService userDetailsService = new UserDetailsServiceImpl(new AccountRepositoryImpl());
+	final public String TOKEN_PREFIX = "Bearer";			// the prefix of the token in the http header
+	final public String HEADER_STRING = "Authorization";	// the http header containing the prexif + the token
+	
+	private UserDetailsService userDetailsService = new AccountService(new AccountRepositoryImpl());
 
 	/**
 	 * Generate a token from the username.
@@ -60,7 +62,6 @@ public class TokenHandler {
 		
 		return userDetailsService.loadUserByUsername(username).getUsername();
 		
-		//return username;
 	}
 
 }

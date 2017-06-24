@@ -12,6 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.thomasvitale.security.service.TokenAuthenticationService;
+import com.thomasvitale.security.service.TokenAuthenticationServiceImpl;
+
 public class JWTAuthenticationFilter extends GenericFilterBean {
 	
 	private TokenAuthenticationService tokenAuthenticationService = new TokenAuthenticationServiceImpl();
