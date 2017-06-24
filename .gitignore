@@ -1,0 +1,9 @@
+/build/
+.DS_STORE
+.DS_Store
+.idea/
+lib/
+Tomcat.xml
+/Tomcat.xml
+/bin/
+/target/
