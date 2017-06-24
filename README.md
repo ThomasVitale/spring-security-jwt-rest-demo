@@ -17,6 +17,7 @@ Spring Security is configured in `com.thomasvitale.config` package:
 * `WebSecurityConfig` defines the policy to access resources, filters for login and authentication, a fake user in memory.
 
 Authentication, Login and JWT are handled in `com.thomasvitale.security` package:
+* `JWTAuthenticationEntryPoint` returns a 401 status code if token authentication fails (whatever the reason)
 * `JWTLoginFilter` is used to log in users and generate a token.
 * `JWTAuthenticationFilter` is used to authenticate (token verification) users when trying to access protected resources.
 * `TokenAuthenticationService` provides methods to generate tokens, to verify their validity.
@@ -31,6 +32,7 @@ This demo has been inspired by the following guides and tutorials:
 * [Stateless Authentication with Spring Security and JWT](http://technicalrex.com/2015/02/20/stateless-authentication-with-spring-security-and-jwt)
 * [Securing REST APIs With Spring Boot](http://ryanjbaxter.com/2015/01/06/securing-rest-apis-with-spring-boot/)
 * [SpringSecurity : Authenticate User with Custom UserDetailsService] (http://www.ekiras.com/2016/04/authenticate-user-with-custom-user-details-service-in-spring-security.html)
+* [REST Security with JWT using Java and Spring Security](https://www.toptal.com/java/rest-security-with-jwt-spring-security-and-java) 
 
 ### Useful Readings
 
