@@ -3,19 +3,20 @@ package com.thomasvitale.security;
 import java.util.Date;
 import java.util.UUID;
 
+import com.thomasvitale.service.AccountService;
+import com.thomasvitale.service.AccountServiceImpl;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.compression.CompressionCodecs;
 
 public class TokenHandler {
 	
-	final long EXPIRATIONTIME = 15*60; 				// 15 minutes
+	final long EXPIRATIONTIME = 15*60*1000; 		// 15 minutes
 	final String SECRET = "ThisIsASecret";			// private key, better read it from an external file
 	final String TOKEN_PREFIX = "Bearer";			// the prefix of the token in the http header
 	final String HEADER_STRING = "Authorization";	// the http header containing the prexif + the token
 	
-	//@Autowired
-	//private UserDetailsService userDetailsService;
+	private AccountService accountService = new AccountServiceImpl();
 	
 	/**
 	 * Generate a token from the username.
@@ -56,9 +57,9 @@ public class TokenHandler {
 				  		  	  .getBody()
 				  		  	  .getSubject();
 		
-		//return userDetailsService.loadUserByUsername(username).getUsername();
+		return accountService.loadUserByUsername(username).getUsername();
 		
-		return username;
+		//return username;
 	}
 
 }
