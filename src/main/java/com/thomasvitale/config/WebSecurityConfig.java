@@ -10,16 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.thomasvitale.repository.AccountRepository;
 import com.thomasvitale.security.JWTAuthenticationFilter;
 import com.thomasvitale.security.JWTLoginFilter;
-import com.thomasvitale.service.AccountService;
+import com.thomasvitale.security.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private AccountService accountService;
+	private AccountRepository accountRepository;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -43,14 +44,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		auth.userDetailsService(userDetailsService());
+		auth.userDetailsService(userDetailsServiceBean());
 		
 		//auth.userDetailsService(userDetailsService()).passwordEncoder(new BCryptPasswordEncoder());
 	}
 	
 	@Override
-	protected UserDetailsService userDetailsService() {
-		return (UserDetailsService) accountService;
+	public UserDetailsService userDetailsServiceBean() throws Exception {
+		return new UserDetailsServiceImpl(accountRepository);
 	}
 
 }

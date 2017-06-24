@@ -30,6 +30,7 @@ This demo has been inspired by the following guides and tutorials:
 * [Securing Spring Boot with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/)
 * [Stateless Authentication with Spring Security and JWT](http://technicalrex.com/2015/02/20/stateless-authentication-with-spring-security-and-jwt)
 * [Securing REST APIs With Spring Boot](http://ryanjbaxter.com/2015/01/06/securing-rest-apis-with-spring-boot/)
+* [SpringSecurity : Authenticate User with Custom UserDetailsService] (http://www.ekiras.com/2016/04/authenticate-user-with-custom-user-details-service-in-spring-security.html)
 
 ### Useful Readings
 

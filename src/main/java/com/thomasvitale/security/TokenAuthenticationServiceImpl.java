@@ -18,7 +18,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class TokenAuthenticationServiceImpl implements TokenAuthenticationService {
 	
 	private TokenHandler tokenHandler = new TokenHandler();
-	
+
 	/**
 	 * When a user successfully logs into the application, create a token for that user.
 	 * 

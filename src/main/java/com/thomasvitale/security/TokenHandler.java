@@ -3,8 +3,9 @@ package com.thomasvitale.security;
 import java.util.Date;
 import java.util.UUID;
 
-import com.thomasvitale.service.AccountService;
-import com.thomasvitale.service.AccountServiceImpl;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.thomasvitale.repository.AccountRepositoryImpl;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,8 +17,8 @@ public class TokenHandler {
 	final String TOKEN_PREFIX = "Bearer";			// the prefix of the token in the http header
 	final String HEADER_STRING = "Authorization";	// the http header containing the prexif + the token
 	
-	private AccountService accountService = new AccountServiceImpl();
-	
+	private UserDetailsService userDetailsService = new UserDetailsServiceImpl(new AccountRepositoryImpl());
+
 	/**
 	 * Generate a token from the username.
 	 * 
@@ -57,7 +58,7 @@ public class TokenHandler {
 				  		  	  .getBody()
 				  		  	  .getSubject();
 		
-		return accountService.loadUserByUsername(username).getUsername();
+		return userDetailsService.loadUserByUsername(username).getUsername();
 		
 		//return username;
 	}
